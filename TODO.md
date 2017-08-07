@@ -1,3 +1,5 @@
+# Core Functionality
+
 [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates)
 User management, including managing logins, sessions, user roles, profiles and user avatars.
 Database management, including migration handling.
@@ -11,5 +13,11 @@ Caching and other performance optimizations.
 Debugging techniques for development and production servers.
 Installation on a production server.
 
+# Bootstrap
+
 [Bootstrap Formatting](https://pythonhosted.org/Flask-Bootstrap/)
 Bootstrap formatting.
+
+# Other
+
+Update ID management system
