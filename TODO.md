@@ -1,3 +1,4 @@
+[Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates)
 User management, including managing logins, sessions, user roles, profiles and user avatars.
 Database management, including migration handling.
 Web form support, including field validation.
@@ -9,3 +10,6 @@ Support for multiple languages.
 Caching and other performance optimizations.
 Debugging techniques for development and production servers.
 Installation on a production server.
+
+[Bootstrap Formatting](https://pythonhosted.org/Flask-Bootstrap/)
+Bootstrap formatting.
