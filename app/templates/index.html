@@ -1,0 +1,15 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome, {{ user.nickname }}</h1>
+    {% for poem in poems %}
+        {% if poem.name %}
+        <div><h1>{{ poem.name }}</h1></div>
+        {% endif %}
+        <div><p>
+        {% for line in poem.body %}
+            {{ line }} <br>
+        {% endfor %}
+        </p></div>
+    {% endfor %}
+{% endblock %}
