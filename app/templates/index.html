@@ -1,7 +1,11 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-    <h1>Welcome, {{ user.nickname }}</h1>
+    {% if g.user and g.user.is_authenticated %}
+        <h1>Welcome, {{ g.user.nickname }}</h1>
+    {% else %}
+        <h1>Welcome, stranger.</h1>
+    {% endif %}
     {% for poem in poems %}
         {% if poem.name %}
         <div><h1>{{ poem.name }}</h1></div>

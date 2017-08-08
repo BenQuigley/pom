@@ -1,9 +1,9 @@
 from flask import render_template, flash, redirect, request, abort, url_for, g
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 from app import app
 from urllib.parse import urlparse, urljoin
 from .forms import LoginForm
-from .models import User
+from .models import User, Poem
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -11,11 +11,15 @@ def is_safe_url(target):
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
 
+@app.before_request
+def before_request():
+    g.user = current_user
+
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'iroh'}  # fake user
-    poems = [ # fake array of posts
+    poems = Poem.query.order_by(Poem.timestamp).all()
+    fake_poems = [ # fake array of posts
         {
             'author': {'nickname': 'iroh'},
             'name': 'They Navigate by Constellation',
@@ -51,28 +55,39 @@ def index():
      ]
     return render_template('index.html',
                            title='Home',
-                           user=user,
                            poems=poems
                            )
 
-@app.before_request
-def before_request():
-    g.user = current_user
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if g.user and g.user.is_authenticated:
+    if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         print(form.username.data)
         user = User.query.filter_by(nickname=form.username.data).first()
-        login_user(user, remember=form.remember_me.data)
-        flash('Logged in successfully.')
-        next = request.args.get('next')
-        if not is_safe_url(next):
-            return abort(400)
-        return redirect(next or url_for('index'))
+        if user is not None and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            flash('Logged in successfully.')
+            next = request.args.get('next')
+            if not is_safe_url(next):
+                return abort(400)
+            return redirect(next or url_for('index'))
+        else:
+            flash("I couldn't find that username/password combo.")
     return render_template('login.html',
                            title='Sign In',
                            form=form)
+
+@app.route('/user/<nickname>')
+@login_required
+def user(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user == None:
+        flash('User %s not found.' % nickname)
+        return redirect(url_for('index'))
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))

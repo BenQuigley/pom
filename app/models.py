@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from app import db, login_manager
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 # Standard Databases
@@ -51,6 +51,11 @@ class Poem(db.Model):
     body = db.Column(db.String(1400))
     timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __init__(self, name, body, user_id):
+        self.name = name
+        self.body = body.split('\n')
+        self.user_id = user_id
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
