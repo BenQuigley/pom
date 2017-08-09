@@ -1,19 +1,28 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-    {% if g.user and g.user.is_authenticated %}
-        <h1>Welcome, {{ g.user.nickname }}</h1>
-    {% else %}
-        <h1>Welcome, stranger.</h1>
-    {% endif %}
-    {% for poem in poems %}
-        {% if poem.name %}
-        <div><h1>{{ poem.name }}</h1></div>
+    <div class="header">
+        {% if g.user and g.user.is_authenticated %}
+            <h1>Welcome, {{ g.user.nickname }}.</h1>
+        {% else %}
+            <h1>Welcome, stranger.</h1>
         {% endif %}
-        <div><p>
-        {% for line in poem.body %}
-            {{ line }} <br>
-        {% endfor %}
-        </p></div>
+    </div>
+    <div class="contents">
+    {% for poem in poems %}
+        <div class="poem">
+            <h2>{{ poem.name }}</h2>
+            <table>
+                <tr><td>Author:</td><td><a href="{{ url_for('user', nickname=poem.author.nickname) }}">
+            {% if poem.author.avatar %}
+                <img src="{{ poem.author.avatar(64) }}">
+            {% else %}
+                {{ poem.author.nickname }}
+            {% endif %}</a></td></tr></table>
+            <p>{% for line in poem.body_lines %}
+                {{ line }} <br>
+            {% endfor %}</p>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}
