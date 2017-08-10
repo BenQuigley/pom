@@ -83,3 +83,9 @@ class Poem(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+from test_data import user, poem
+db.create_all()
+db.session.add(user)
+db.session.add(poem)
+db.session.commit()

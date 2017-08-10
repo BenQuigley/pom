@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -29,10 +30,3 @@ if not app.debug:
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
         app.logger.info('pom startup')
-
-if __name__ == '__main__':
-    from test_data import user, poem
-    db.create_all()
-    db.session.add(user)
-    db.session.add(poem)
-    db.session.commit()
