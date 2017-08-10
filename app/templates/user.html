@@ -1,0 +1,17 @@
+<!-- extend from base layout -->
+{% extends "userBase.html" %}
+{% block user_content %}
+    {% if user.about_me %}<p>About me: {{ user.about_me }}</p>{% endif %}
+    {% if user.last_seen %}<p>Last seen: {{ user.last_seen_display }} UTC</p>{% endif %}
+    </div>
+    <div class="contents">
+    {% for poem in user.poems %}
+        <div class="poem">
+            <h2>{{ poem.name }}</h2>
+            <p>{% for line in poem.body_lines %}
+                {{ line }} <br>
+            {% endfor %}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
