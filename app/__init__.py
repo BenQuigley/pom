@@ -10,15 +10,12 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-if HEROKU:
-    db.create_all()
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 if not app.debug:
     import logging
-    if os.environ.get('HEROKU'):
+    if HEROKU:
         stream_handler = logging.StreamHandler()
         app.logger.addHandler(stream_handler)
         app.logger.setLevel(logging.INFO)
