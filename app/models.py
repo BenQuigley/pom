@@ -85,7 +85,8 @@ class Poem(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-if HEROKU:
+
+def initialize_db():
     from test_data import user, poem
     db.create_all()
     db.session.add(user)
