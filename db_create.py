@@ -1,10 +1,13 @@
 #!flask/bin/python
 
+import os.path
+
 from migrate.versioning import api
+
 from config import SQLALCHEMY_DATABASE_URI
 from config import SQLALCHEMY_MIGRATE_REPO
 from app import db
-import os.path
+from app.models import User, Poem
 
 db.create_all()
 
