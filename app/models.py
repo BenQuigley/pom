@@ -4,6 +4,7 @@ from hashlib import md5
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+from config import HEROKU
 from app import db, login_manager
 
 # Database model for site users.
@@ -84,8 +85,9 @@ class Poem(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-from test_data import user, poem
-db.create_all()
-db.session.add(user)
-db.session.add(poem)
-db.session.commit()
+if HEROKU:
+    from test_data import user, poem
+    db.create_all()
+    db.session.add(user)
+    db.session.add(poem)
+    db.session.commit()
