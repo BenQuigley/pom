@@ -18,5 +18,5 @@ navigate = "What tempestuous destiny rushes at them\n"\
             "In the bed sheets together – recalling\n"\
             "The Polaroid memories of their childhoods, but reflecting\n" \
             "How the film for a Polaroid just isn't made anymore."
-user = User.(nickname="iroh", password='meow', email='benquigleyconsulting@gmail.com')
+user = User(nickname="iroh", password='meow', email='benquigleyconsulting@gmail.com')
 poem = Poem(name="They Navigate by Constellation", body=navigate, user_id=u.id)
