@@ -1,10 +1,13 @@
 import os
 
-from secret import SECRET_KEY
-
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 HEROKU = os.environ.get('HEROKU')
+
+if HEROKU:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+else:
+    from secret import SECRET_KEY
+
 WTF_CSRF_ENABLED = True
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
