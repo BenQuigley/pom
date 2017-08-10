@@ -4,14 +4,17 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
+from config import HEROKU
+
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+if HEROKU:
+    db.create_all()
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-from app import views, models
 
 if not app.debug:
     import logging
