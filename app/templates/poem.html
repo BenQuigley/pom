@@ -1,1 +1,13 @@
-{% extends "base.html" %}
+<div class="poem">
+    <h2>{{ poem.name }}</h2>
+    <table>
+        <tr><td>Author:</td><td><a href="{{ url_for('user', nickname=poem.author.nickname) }}">
+    {% if poem.author.avatar %}
+        <img src="{{ poem.author.avatar(64) }}">
+    {% else %}
+        {{ poem.author.nickname }}
+    {% endif %}</a></td></tr></table>
+    <p>{% for line in poem.body_lines %}
+        {{ line }} <br>
+    {% endfor %}</p>
+</div>

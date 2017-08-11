@@ -2,27 +2,16 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="header">
+        <h1>Welcome,
         {% if g.user and g.user.is_authenticated %}
-            <h1>Welcome, {{ g.user.nickname }}.</h1>
+            {{ g.user.nickname }}.
         {% else %}
-            <h1>Welcome, stranger.</h1>
-        {% endif %}
+            stranger.
+        {% endif %}Here are some hot poems:</h1>
     </div>
     <div class="contents">
     {% for poem in poems %}
-        <div class="poem">
-            <h2>{{ poem.name }}</h2>
-            <table>
-                <tr><td>Author:</td><td><a href="{{ url_for('user', nickname=poem.author.nickname) }}">
-            {% if poem.author.avatar %}
-                <img src="{{ poem.author.avatar(64) }}">
-            {% else %}
-                {{ poem.author.nickname }}
-            {% endif %}</a></td></tr></table>
-            <p>{% for line in poem.body_lines %}
-                {{ line }} <br>
-            {% endfor %}</p>
-        </div>
+        {% include "poem.html" %}
     {% endfor %}
     </div>
 {% endblock %}
