@@ -1,9 +1,10 @@
 from datetime import datetime
+from urllib.parse import urlparse, urljoin
 
 from flask import render_template, flash, redirect, request, abort, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
+
 from app import app, db
-from urllib.parse import urlparse, urljoin
 
 from .forms import LoginForm, CreateAccountForm, EditProfileForm
 from .models import User, Poem
