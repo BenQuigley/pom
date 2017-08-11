@@ -28,7 +28,12 @@ navigate = "What tempestuous destiny rushes at them\n" \
            "In the bed sheets together – recalling\n" \
            "The Polaroid memories of their childhoods, but reflecting\n" \
            "How the film for a Polaroid just isn't made anymore."
-user = User(nickname="iroh", password='meow', email='donnerblues@gmail.com')
+if HEROKU:
+    password = os.environ.get('PASSWORD')
+else:
+    from secret import PASSWORD as password
+
+user = User(nickname="iroh", password=password, email='donnerblues@gmail.com')
 poem = Poem(name="They Navigate by Constellation", body=navigate, user_id=user.id)
 
 db.session.add(user)
