@@ -1,12 +1,21 @@
 <div class="poem">
-    <h2>{{ poem.name }}</h2>
-    <table>
-        <tr><td>Author:</td><td><a href="{{ url_for('user', nickname=poem.author.nickname) }}">
-    {% if poem.author.avatar %}
-        <img src="{{ poem.author.avatar(64) }}">
+    {% if poem_main %}
+        <h1>{{ poem.name }}</h1>
     {% else %}
-        {{ poem.author.nickname }}
-    {% endif %}</a></td></tr></table>
+        <a href="{{ url_for('poem', poem_id=poem.id) }}"><h2>{{ poem.name }}</h2></a>
+    {% endif %}
+    {% if verbose %}
+        <table><tr><td>Author:</td><td><a href="{{ url_for('user', nickname=poem.author.nickname) }}">
+            {% if poem.author.avatar %}
+                <img src="{{ poem.author.avatar(64) }}">
+            {% else %}
+                {{ poem.author.nickname }}
+            {% endif %}
+        </a></td></tr></table>
+    {% endif %}
+    {% if poem_main %}
+        <a href="{{ url_for('edit_poem', poem_id=poem.id) }}">Edit</a>
+    {% endif %}
     <p>{% for line in poem.body_lines %}
         {{ line }} <br>
     {% endfor %}</p>

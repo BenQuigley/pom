@@ -6,12 +6,7 @@
     </div>
     <div class="contents">
     {% for poem in user.poems %}
-        <div class="poem">
-            <h2>{{ poem.name }}</h2>
-            <p>{% for line in poem.body_lines %}
-                {{ line }} <br>
-            {% endfor %}</p>
-        </div>
+        {% include "poem.html" %}
     {% endfor %}
     </div>
 {% endblock %}

@@ -26,9 +26,7 @@ def before_request():
 @app.route('/index')
 def index():
     poems = Poem.query.order_by(Poem.timestamp).all()
-    return render_template('index.html',
-                           title='Home',
-                           poems=poems)
+    return render_template('index.html', title='Home', poems=poems, verbose=True)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -92,6 +90,22 @@ def user(nickname):
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
     return render_template('user.html', user=user)
+
+@app.route('/editpoem/<poem_id>')
+def edit_poem(poem_id):
+    poem = Poem.query.filter_by(id=poem_id).first()
+    if poem == None:
+        flash('Poem %s not found.' % poem_id)
+        return redirect(url_for('index'))
+    return render_template('editPoem.html', poem=poem, verbose=True, poem_main=True)
+
+@app.route('/poem/<poem_id>')
+def poem(poem_id):
+    poem = Poem.query.filter_by(id=poem_id).first()
+    if poem == None:
+        flash('Poem %s not found.' % poem_id)
+        return redirect(url_for('index'))
+    return render_template('viewPoem.html', poem=poem, verbose=True, poem_main=True)
 
 @app.route('/user/edit', methods=['GET', 'POST'])
 @login_required
