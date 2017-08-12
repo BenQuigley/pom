@@ -1,14 +1,17 @@
 {% extends "bootstrap/base.html" %}
+{% block title %}
+    {% if page_title %}
+        {{ page_title }} - pom
+    {% else %}
+        pom: monochrome micro-poetry
+    {% endif %}
+{% endblock %}
 {% block head %}
     {{super()}}
     <meta charset="UTF-8">
-    {% if title %}
-    <title>{{ title }} - pom</title>
-    {% else %}
-    <title>Welcome to pom</title>
-    {% endif %}
+
 {% endblock %}
-{% block title %}
+{% block header %}
     {{super()}}
         <div>Pom: <a href="/index">home</a></div>
     {% endblock %}

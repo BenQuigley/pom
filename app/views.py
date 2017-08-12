@@ -26,7 +26,7 @@ def before_request():
 @app.route('/index')
 def index():
     poems = Poem.query.order_by(Poem.timestamp).all()
-    return render_template('index.html', title='Home', poems=poems, verbose=True)
+    return render_template('index.html', page_title='Home', poems=poems, verbose=True)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,7 +46,7 @@ def login():
         else:
             flash("I couldn't find that username/password combo.")
     return render_template('login.html',
-                           title='Sign In',
+                           page_title='Sign In',
                            form=form)
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -72,7 +72,7 @@ def create():
                 return abort(400)
             return redirect(next or url_for('index'))
     return render_template('create.html',
-                           title='Create Account',
+                           page_title='Create Account',
                            form=form)
 
 @app.route('/logout')
