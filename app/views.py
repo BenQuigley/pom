@@ -26,7 +26,7 @@ def before_request():
 @app.route('/index')
 def index():
     poems = Poem.query.order_by(Poem.timestamp).all()
-    return render_template('index.html', page_title='Home', poems=poems, verbose=True)
+    return render_template('index.html', poems=poems, verbose=True)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
