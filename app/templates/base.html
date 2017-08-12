@@ -6,6 +6,18 @@
         pom: monochrome micro-poetry
     {% endif %}
 {% endblock %}
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap-reboot.css')}}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{url_for('.static', filename='js/bootstrap.js')}}"></script>
+    {{super()}}
+{% endblock %}
+
 {% block head %}
     {{super()}}
     <meta charset="UTF-8">
