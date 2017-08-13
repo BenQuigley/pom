@@ -77,6 +77,7 @@ def create():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('Logged out successfully.')
     return redirect(url_for('index'))
 
 @app.route('/user/<nickname>')
