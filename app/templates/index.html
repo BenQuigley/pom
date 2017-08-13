@@ -1,6 +1,7 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
+    {{super()}}
     <div class="header">
         <h1>pom: monochrome micro-poetry</h1>
         <h4>Welcome,
@@ -10,7 +11,7 @@
             stranger.
         {% endif %}Here are some hot poems:</h4>
     </div>
-    <div class="contents">
+    <div class="poems">
     {% for poem in poems %}
         {% include "poem.html" %}
     {% endfor %}
