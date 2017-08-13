@@ -1,38 +1,36 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %}
+<!doctype html>
+<html><head>
+    <title>
     {% if page_title %}
         {{ page_title }} - pom
     {% else %}
         pom: monochrome micro-poetry
-    {% endif %}
-{% endblock %}
+    {% endif %}</title>
+    <script src="{{url_for('bower.static', filename='jquery/dist/jquery.js')}}"></script>
+    <script src="{{url_for('bower.static', filename='bootstrap/dist/js/bootstrap.js')}}"></script>
 
-{% block styles %}
-    {{super()}}
-    <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url_for('.static', filename='css/main.css')}}">
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('bower.static', filename='bootstrap/dist/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('.static', filename='css/main.css')}}">
 
-{% block scripts %}
-    <script src="{{url_for('.static', filename='js/bootstrap.js')}}"></script>
-    {{super()}}
-{% endblock %}
+</head>
+<body>
 
-{% block navbar %}
     <div class="navbar navbar-fixed-top">
-    <a href="{{ url_for('index') }}">home</a>
+        <a href="{{ url_for('index') }}">home</a>
         {% if not g.user.is_authenticated %}
             | <a href="{{ url_for('create') }}">create</a>
             | <a href="{{ url_for('login') }}">log in</a>
         {% else %}
             | <a href="{{ url_for('user', nickname=g.user.nickname) }}">{{ g.user.nickname }}</a>
             | <a href="{{ url_for('logout') }}">log out</a>
-        {% endif %}</p>
+        {% endif %}
     </div>
-{% endblock %}
 
-{% block content %}
-    {% include "flash.html" %}
-    {{super()}}
-{% endblock %}
+    <div class="notifications">
+        {% include "flash.html" %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body></html>

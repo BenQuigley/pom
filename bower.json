@@ -1,0 +1,25 @@
+{
+  "name": "pom",
+  "authors": [
+    "Ben Quigley <benquigleyconsulting@gmail.com>"
+  ],
+  "description": "A site for monochromatic poetry.",
+  "main": "run.py",
+  "keywords": [
+    "poetry"
+  ],
+  "license": "MIT",
+  "homepage": "https://flask-pom.herokuapp.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7"
+  }
+}
