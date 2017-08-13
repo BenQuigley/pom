@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}
+
 {% block title %}
     {% if page_title %}
         {{ page_title }} - pom
@@ -10,7 +11,7 @@
 {% block styles %}
     {{super()}}
     <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap-reboot.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/main.css')}}">
 {% endblock %}
 
 {% block scripts %}
@@ -18,36 +19,30 @@
     {{super()}}
 {% endblock %}
 
-{% block head %}
-    {{super()}}
-    <meta charset="UTF-8">
-
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+    <a href="{{ url_for('index') }}">home</a>
+        {% if not g.user.is_authenticated %}
+            | <a href="{{ url_for('create') }}">create</a>
+            | <a href="{{ url_for('login') }}">log in</a>
+        {% else %}
+            | <a href="{{ url_for('user', nickname=g.user.nickname) }}">{{ g.user.nickname }}</a>
+            | <a href="{{ url_for('logout') }}">log out</a>
+        {% endif %}</p>
+    </div>
 {% endblock %}
-{% block header %}
-    {{super()}}
-        <div>Pom: <a href="/index">home</a></div>
-    {% endblock %}
-    {% block navbar %}
-        <div class="navbar navbar-fixed-top"
-            {% if not g.user.is_authenticated %}
-                | <a href="{{ url_for('create') }}">create</a>
-                | <a href="{{ url_for('login') }}">log in</a>
-            {% else %}
-                | <a href="{{ url_for('user') }}">{{ g.user.nickname }}</a>
-                | <a href="{{ url_for('logout') }}">log out</a>
-            {% endif %}
-        </div>
-    {% endblock %}
-    {% block contents %}
-        {{super()}}
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
+
+{% block contents %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info flashes">
                 <ul>
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
                 </ul>
-            {% endif %}
-        {% endwith %}
-    {% endblock %}
-</html>
+            </div>
+        {% endif %}
+    {% endwith %}
+    {{super()}}
+{% endblock %}

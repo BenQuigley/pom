@@ -2,12 +2,13 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="header">
-        <h1>Welcome,
+        <h1>pom: monochrome micro-poetry</h1>
+        <h4>Welcome,
         {% if g.user and g.user.is_authenticated %}
             {{ g.user.nickname }}.
         {% else %}
             stranger.
-        {% endif %}Here are some hot poems:</h1>
+        {% endif %}Here are some hot poems:</h4>
     </div>
     <div class="contents">
     {% for poem in poems %}

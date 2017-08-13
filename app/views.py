@@ -34,7 +34,6 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        print(form.username.data)
         user = User.query.filter_by(nickname=form.username.data).first()
         if user is not None and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
