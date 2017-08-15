@@ -19,7 +19,7 @@ import logging
 if HEROKU:
     stream_handler = logging.StreamHandler()
     app.logger.addHandler(stream_handler)
-    app.logger.setLevel(logging.INFO)
+    app.logger.setLevel(logging.ERROR)
     app.logger.info('pom startup')
 elif not app.debug:
     from logging.handlers import RotatingFileHandler
