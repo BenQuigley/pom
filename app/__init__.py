@@ -1,21 +1,25 @@
-import os
+import logging
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bower import Bower
 
-from config import basedir, HEROKU
+from config import HEROKU
 
+""" Create and configure the application and database. """
 app = Flask(__name__)
-Bower(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+""" Initialize the frontend library manager. """
+Bower(app)
+
+""" Initialize the login manager. """
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-import logging
+""" Set up the logging modes. """
 if HEROKU:
     stream_handler = logging.StreamHandler()
     app.logger.addHandler(stream_handler)
@@ -30,4 +34,5 @@ elif not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('pom startup')
 
+""" Run the next modues, populating the application with views and models. """
 from app import views, models

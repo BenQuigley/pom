@@ -5,15 +5,17 @@ from flask import render_template, flash, redirect, request, abort, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
 
 from app import app, db
-
 from .forms import LoginForm, CreateAccountForm, EditProfileForm, EditPoemForm
 from .models import User, Poem
 
+
+""" Redirect to "next" only for safe (same-site) requests. """
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
 
+""" Use flask.flash to show the user any errors in a form submission. """
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
@@ -22,6 +24,7 @@ def flash_errors(form):
                 error
             ))
 
+""" Update the user's "last seen" value, and populate g.user with flask_login.current_user. """
 @app.before_request
 def before_request():
     g.user = current_user
@@ -29,6 +32,8 @@ def before_request():
         g.user.last_seen = datetime.utcnow()
         db.session.add(g.user)
         db.session.commit()
+
+""" URL routes. """
 
 @app.route('/')
 @app.route('/index')
