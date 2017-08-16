@@ -3,6 +3,7 @@
 A site for publishing and sharing poetry.
 
 Backend: flask, gunicorn
+
 Frontend: flask-bower, bootstrap
 
 ## Online
