@@ -6,7 +6,10 @@ HEROKU = os.environ.get('HEROKU')
 if HEROKU:
     SECRET_KEY = os.environ.get('SECRET_KEY')
 else:
-    from secret import SECRET_KEY
+    try:
+        from secret import SECRET_KEY
+    except ImportError:
+        SECRET_KEY = "private"
 
 WTF_CSRF_ENABLED = True
 
