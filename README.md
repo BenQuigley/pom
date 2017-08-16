@@ -8,7 +8,7 @@ Frontend: flask-bower, bootstrap
 
 ## Online
 
-Pom is hosted on heroku. Visit us at https://flask-pom.herokuapp.com/.
+Pom is hosted on heroku. Visit us at [flask-pom.herokuapp.com](https://flask-pom.herokuapp.com/).
 
 ## Installing locally
 
