@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(120), index=True, unique=True)
-    pwdhash = db.Column(db.String(60))
+    pwdhash = db.Column(db.String(120))
     poems = db.relationship('Poem', backref='author', lazy='dynamic')
     email = db.Column(db.String(120), index=True, unique=False)
     activate = db.Column(db.Boolean)
